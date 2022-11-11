@@ -5,7 +5,7 @@ namespace UnitedKingdom.Police
     /// <summary>
     /// Category of the outcome. See https://data.police.uk/docs/method/outcomes-at-location/.
     /// </summary>
-    public class StreetlevelOutcomeCategory
+    public class OutcomeCategory
     {
         /// <summary>
         /// Internal code. E.g. "under-investigation".

@@ -5,7 +5,7 @@ namespace UnitedKingdom.Police
     /// <summary>
     /// The category and date of the latest recorded outcome for the crime.
     /// </summary>
-    public class StreetlevelCrimeOutcomeStatus
+    public class CrimeOutcomeStatus
     {
         /// <summary>
         /// Category of the outcome.

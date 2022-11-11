@@ -5,7 +5,7 @@ namespace UnitedKingdom.Police
     /// <summary>
     /// The approximate street the crime occurred.
     /// </summary>
-    public class StreetlevelCrimeLocationStreet
+    public class CrimeLocationStreet
     {
         /// <summary>
         /// Unique identifier for the street.

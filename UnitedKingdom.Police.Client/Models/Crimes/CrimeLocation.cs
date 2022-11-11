@@ -5,7 +5,7 @@ namespace UnitedKingdom.Police
     /// <summary>
     /// Approximate location of the incident. See https://data.police.uk/about/#location-anonymisation.
     /// </summary>
-    public class StreetlevelCrimeLocation
+    public class CrimeLocation
     {
         /// <summary>
         /// Latitude.
@@ -23,6 +23,6 @@ namespace UnitedKingdom.Police
         /// The approximate street the crime occurred.
         /// </summary>
         [JsonPropertyName("street")]
-        public StreetlevelCrimeLocationStreet Street { get; set; }
+        public CrimeLocationStreet Street { get; set; }
     }
 }

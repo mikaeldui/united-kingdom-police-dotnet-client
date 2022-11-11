@@ -5,13 +5,13 @@ namespace UnitedKingdom.Police
     /// <summary>
     /// Outcomes at street-level; either at a specific location, within a 1 mile radius of a single point, or within a custom area.
     /// </summary>
-    public class StreetlevelOutcome
+    public class Outcome
     {
         /// <summary>
         /// Category of the outcome. See https://data.police.uk/docs/method/outcomes-at-location/.
         /// </summary>
         [JsonPropertyName("category")]
-        public StreetlevelOutcomeCategory Category { get; set; }
+        public OutcomeCategory Category { get; set; }
 
         /// <summary>
         /// Date of the outcome

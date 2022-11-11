@@ -111,8 +111,8 @@ namespace UnitedKingdom.Police
         /// </summary>
         /// <param name="date">Year and month.</param>
         /// <param name="locationId">Crimes and outcomes are mapped to specific locations on the map. Valid IDs are returned by other methods which return location information.</param>
-        public async Task<StreetlevelOutcome[]?> GetStreetlevelOutcomesAsync(DateTime date, int locationId) =>
-            await _httpClient.GetFromJsonAsync<StreetlevelOutcome[]>($"outcomes-at-location?date={date:yyyy-MM}&location_id={locationId}");
+        public async Task<Outcome[]?> GetStreetlevelOutcomesAsync(DateTime date, int locationId) =>
+            await _httpClient.GetFromJsonAsync<Outcome[]>($"outcomes-at-location?date={date:yyyy-MM}&location_id={locationId}");
 
         /// <summary>
         /// Outcomes at street-level within a 1 mile radius of a single point.
@@ -120,16 +120,16 @@ namespace UnitedKingdom.Police
         /// <param name="date">Year and month.</param>
         /// <param name="latitude">Latitude of the requested crime area</param>
         /// <param name="longitude">Longitude of the requested crime area</param>
-        public async Task<StreetlevelOutcome[]?> GetStreetlevelOutcomesAsync(DateTime date, double latitude, double longitude) =>
-            await _httpClient.GetFromJsonAsync<StreetlevelOutcome[]>($"outcomes-at-location?date={date:yyyy-MM}&lat={latitude}&lng={longitude}");
+        public async Task<Outcome[]?> GetStreetlevelOutcomesAsync(DateTime date, double latitude, double longitude) =>
+            await _httpClient.GetFromJsonAsync<Outcome[]>($"outcomes-at-location?date={date:yyyy-MM}&lat={latitude}&lng={longitude}");
 
         /// <summary>
         /// Outcomes at street-level within a custom area. The area must contain no more than 10,000 outcomes. Otherwise, the API will return a 503 status code.
         /// </summary>
         /// <param name="date">Year and month.</param>
         /// <param name="polygon">The lat/lng pairs which define the boundary of the custom area</param>
-        public async Task<StreetlevelOutcome[]?> GetStreetlevelOutcomesAsync(DateTime date, IEnumerable<(double latitude, double longitude)> polygon) =>
-            await _httpClient.GetFromJsonAsync<StreetlevelOutcome[]>($"outcomes-at-location?date={date:yyyy-MM}&poly={string.Join(":", polygon.Select(c => $"{c.latitude},{c.longitude}"))}");
+        public async Task<Outcome[]?> GetStreetlevelOutcomesAsync(DateTime date, IEnumerable<(double latitude, double longitude)> polygon) =>
+            await _httpClient.GetFromJsonAsync<Outcome[]>($"outcomes-at-location?date={date:yyyy-MM}&poly={string.Join(":", polygon.Select(c => $"{c.latitude},{c.longitude}"))}");
 
         #endregion GetStreetLevelOutcomesAsync
 

@@ -25,7 +25,7 @@ namespace UnitedKingdom.Police
         /// Approximate location of the incident. See https://data.police.uk/about/#location-anonymisation.
         /// </summary>
         [JsonPropertyName("location")]
-        public StreetlevelCrimeLocation Location { get; set; }
+        public CrimeLocation Location { get; set; }
 
         /// <summary>
         /// Extra information about the crime (if applicable).
@@ -53,9 +53,9 @@ namespace UnitedKingdom.Police
         public string LocationSubtype { get; set; }
 
         /// <summary>
-        /// The category and date of the latest recorded outcome for the crime
+        /// The category and date of the latest recorded outcome for the crime. Not defined for the Outcome endpoints.
         /// </summary>
         [JsonPropertyName("outcome_status")]
-        public StreetlevelCrimeOutcomeStatus OutcomeStats { get; set; }
+        public CrimeOutcomeStatus? OutcomeStats { get; set; }
     }
 }
