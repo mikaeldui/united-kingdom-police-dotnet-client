@@ -47,5 +47,13 @@ namespace UnitedKingdom.Police.Tests
             var result = await client.StopAndSearches.GetStopAndSearchesWithNoLocationAsync("cleveland", DateTime.Now.AddMonths(-3));
             Assert.IsTrue(result.Any());
         }
+
+        [TestMethod]
+        public async Task GetStopAndSearchesByForceAsync()
+        {
+            using var client = new PoliceClient();
+            var result = await client.StopAndSearches.GetStopAndSearchesByForceAsync("cleveland", DateTime.Now.AddMonths(-3));
+            Assert.IsTrue(result.Any());
+        }
     }
 }
