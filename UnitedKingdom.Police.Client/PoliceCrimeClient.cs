@@ -9,10 +9,7 @@ namespace UnitedKingdom.Police
     public class PoliceCrimeClient
     {
         private readonly HttpClient _httpClient;
-        internal PoliceCrimeClient(HttpClient httpClient) 
-        { 
-            _httpClient = httpClient;
-        }
+        internal PoliceCrimeClient(HttpClient httpClient) => _httpClient = httpClient;
 
         /// <summary>
         /// Crimes at street-level within a 1 mile radius of a single point.
@@ -55,5 +52,31 @@ namespace UnitedKingdom.Police
             }
             return await _httpClient.GetFromJsonAsync<StreetlevelCrime[]>(url);
         }
+
+        /// <summary>
+        /// Returns a list of valid categories for a given data set date.
+        /// </summary>
+        /// <param name="date">Year and month.</param>
+        public async Task<CrimeCategory[]?> GetCrimeCategoriesAsync(DateTime date) =>
+            await _httpClient.GetFromJsonAsync<CrimeCategory[]>($"crime-categories?date={date:yyyy-MM}");
+
+    }
+
+    /// <summary>
+    /// Valid category for a given data set date.
+    /// </summary>
+    public class CrimeCategory
+    {
+        /// <summary>
+        /// Unique identifier. E.g. "all-crime".
+        /// </summary>
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
+
+        /// <summary>
+        /// Name of the crime category. E.g. "All crime and ASB".
+        /// </summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 }

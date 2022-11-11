@@ -30,5 +30,15 @@ namespace UnitedKingdom.Police.Tests
             var result = await client.Crimes.GetStreetlevelCrimeAsync(area, DateTime.Now.AddMonths(-3), "all-crime");
             Assert.IsTrue(result.Any());
         }
+
+        [TestMethod]
+        public async Task GetCrimeCategoriesAsync()
+        {
+            using var client = new PoliceClient();
+            var result = await client.Crimes.GetCrimeCategoriesAsync(DateTime.Now.AddMonths(-3));
+            Assert.IsTrue(result.Any());
+            Assert.IsNotNull(result.First().Name);
+            Assert.IsNotNull(result.First().Url);
+        }
     }
 }
