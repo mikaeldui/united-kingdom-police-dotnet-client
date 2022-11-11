@@ -8,14 +8,12 @@ namespace UnitedKingdom.Police
         private PoliceForceClient? _forceClient;
         private PoliceCrimeClient? _crimeClient;
         private PoliceNeighbourhoodClient? _neighbourhoodsClient;
+        private PoliceStopAndSearchClient? _stopAndSearchClient;
 
-        public PoliceClient()
+        public PoliceClient() => _httpClient = new HttpClient
         {
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("https://data.police.uk/api/", UriKind.Absolute)
-            };
-        }
+            BaseAddress = new Uri("https://data.police.uk/api/", UriKind.Absolute)
+        };
 
         /// <summary>
         /// Return a list of available data sets.
@@ -31,11 +29,16 @@ namespace UnitedKingdom.Police
         /// Crime related.
         /// </summary>
         public PoliceCrimeClient Crimes => _crimeClient ??= new PoliceCrimeClient(_httpClient);
-        
+
         /// <summary>
         /// Neighbourhood related.
         /// </summary>
         public PoliceNeighbourhoodClient Neighbourhoods => _neighbourhoodsClient ??= new PoliceNeighbourhoodClient(_httpClient);
+
+        /// <summary>
+        /// Stop and search related.
+        /// </summary>
+        public PoliceStopAndSearchClient StopAndSearch => _stopAndSearchClient ??= new PoliceStopAndSearchClient(_httpClient);
 
         public void Dispose() => ((IDisposable)_httpClient).Dispose();
     }

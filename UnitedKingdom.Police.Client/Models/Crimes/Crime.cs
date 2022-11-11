@@ -25,7 +25,7 @@ namespace UnitedKingdom.Police
         /// Approximate location of the incident. See https://data.police.uk/about/#location-anonymisation.
         /// </summary>
         [JsonPropertyName("location")]
-        public CrimeLocation? Location { get; set; }
+        public Location? Location { get; set; }
 
         /// <summary>
         /// Extra information about the crime (if applicable).

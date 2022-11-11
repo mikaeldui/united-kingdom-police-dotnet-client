@@ -9,10 +9,7 @@ namespace UnitedKingdom.Police
     public class PoliceForceClient
     {
         private readonly HttpClient _httpClient;
-        internal PoliceForceClient(HttpClient httpClient) 
-        { 
-            _httpClient = httpClient;
-        }
+        internal PoliceForceClient(HttpClient httpClient) => _httpClient = httpClient;
 
         /// <summary>
         /// A list of all the police forces available via the API except the British Transport Police, which is excluded from the list returned. 

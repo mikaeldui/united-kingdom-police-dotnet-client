@@ -9,10 +9,7 @@ namespace UnitedKingdom.Police
     public class PoliceNeighbourhoodClient
     {
         private readonly HttpClient _httpClient;
-        internal PoliceNeighbourhoodClient(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
+        internal PoliceNeighbourhoodClient(HttpClient httpClient) => _httpClient = httpClient;
 
         #region Get Neighbourhoods
 
