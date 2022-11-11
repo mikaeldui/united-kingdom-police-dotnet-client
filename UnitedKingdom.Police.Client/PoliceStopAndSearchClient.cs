@@ -53,5 +53,22 @@ namespace UnitedKingdom.Police
 
             return await _httpClient.GetFromJsonAsync<StopAndSearch[]>(url);
         }
+
+        /// <summary>
+        /// Stop and searches at a particular location.
+        /// </summary>
+        /// <param name="locationId">The ID of the location to get stop and searches for</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default.</param>
+        public async Task<StopAndSearch[]?> GetStopAndSearchesByLocationAsync(int locationId, DateTime? date = null)
+        {
+            var url = $"stops-at-location?location_id={locationId}";
+
+            if (date != null)
+            {
+                url += $"&date={date:yyyy-MM}";
+            }
+
+            return await _httpClient.GetFromJsonAsync<StopAndSearch[]>(url);
+        }
     }
 }

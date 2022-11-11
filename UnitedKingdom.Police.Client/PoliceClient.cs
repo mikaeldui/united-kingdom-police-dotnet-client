@@ -38,7 +38,7 @@ namespace UnitedKingdom.Police
         /// <summary>
         /// Stop and search related.
         /// </summary>
-        public PoliceStopAndSearchClient StopAndSearch => _stopAndSearchClient ??= new PoliceStopAndSearchClient(_httpClient);
+        public PoliceStopAndSearchClient StopAndSearches => _stopAndSearchClient ??= new PoliceStopAndSearchClient(_httpClient);
 
         public void Dispose() => ((IDisposable)_httpClient).Dispose();
     }
