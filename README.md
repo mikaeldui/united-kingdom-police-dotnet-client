@@ -1,54 +1,26 @@
-# NuGet Package Template Repository
-A template repository for NuGet packages.
-
-Add this to the repo description when creating it: (", " is special)
-
-    ProjectName: MyAwesomeProject.Api,
-    Prefix: Meeee,
-    Namespace: MyAwesomeProject,
-    Description: This project is really awesome!,
-    Tags: Awesomeness; Project; 1000,
-    Package: Optional.Package.ToReference
-
-Prefix is merged with ProjectName where needed, like for the package name.
-
-`NUGET_ORG_API_KEY` needs to be added as a secret for the `nuget.org` environment.
-
-The repo description must be manually changed afterwards since the workflow doesn't have permission to change it for you.
-
-## Contains
-
-    root/
-    ├─ .github/
-    │  ├─ workflows/
-    │  │  ├─ codeql-analysis.yml
-    │  │  ├─ dotnet.yml
-    │  ├─ dependabot.yml
-    ├─ ProjectName/
-    │  ├─ ProjectName.csproj
-    │  ├─ Class1.cs
-    ├─ ProjectName.Tests/
-    │  ├─ ProjectName.Tests.csproj
-    │  ├─ TestClass1.cs
-    ├─ .gitignore
-    ├─ LICENSE    
-    ├─ ProjectName.sln
-    ├─ ProjectName.png
-    ├─ README.md
-    ├─ SECURITY.md
-    
-## Thanks
-
-Thanks to [Liam Gulliver](https://github.com/lgulliver) for his great [tutorial](https://lgulliver.github.io/dynamically-generate-projects-with-github-templates-and-actions/).
-
-<!--
-# UnitedKingdom.Police.Client
+# United Kingdom Police .NET Client
 [![.NET](https://github.com/mikaeldui/united-kingdom-police-dotnet-client/actions/workflows/dotnet.yml/badge.svg)](https://github.com/mikaeldui/united-kingdom-police-dotnet-client/actions/workflows/dotnet.yml)
 [![CodeQL Analysis](https://github.com/mikaeldui/united-kingdom-police-dotnet-client/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mikaeldui/united-kingdom-police-dotnet-client/actions/workflows/codeql-analysis.yml)
 
-This NuGet package is really awesome!
+The API provides a rich data source for information, including:
+
+neighbourhood team members
+upcoming events
+street-level crime and outcome data
+nearest police stations
 
 You can install it using the following **.NET CLI** command:
 
     dotnet add package MikaelDui.UnitedKingdom.Police.Client --version *
--->
+
+## Example
+
+```csharp
+
+using PoliceClient client = new();
+
+var crimes = await client.Crimes.GetStreetlevelCrimesAsync(51.375487, -0.096780);
+
+foreach(var crime in crimes)
+    Console.WriteLine(crime.Category);
+```
