@@ -9,12 +9,12 @@
     <PackageId>MikaelDui.UnitedKingdom.Police.Client</PackageId>
     <Authors>Mikael Dúi Bolinder</Authors>
     <Product>MikaelDui.UnitedKingdom.Police.Client</Product>
-    <Description>This project is really awesome!</Description>
+    <Description>Open data about crime and policing in England, Wales and Northern Ireland.</Description>
     <PackageProjectUrl>https://github.com/mikaeldui/united-kingdom-police-dotnet-client</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>UnitedKingdom.Police.Client.png</PackageIcon>
     <RepositoryUrl>https://github.com/mikaeldui/united-kingdom-police-dotnet-client</RepositoryUrl>
-    <PackageTags></PackageTags>
+    <PackageTags>united kingdom; police</PackageTags>
     <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
     <AssemblyName>MikaelDui.UnitedKingdom.Police.Client</AssemblyName>
   </PropertyGroup>
