@@ -26,9 +26,9 @@ namespace UnitedKingdom.Police
         public int? PersonId { get; set; }
 
         /// <summary>
-        /// Crime information.
+        /// Crime information. Not set for the endpoint "outcomes for crime".
         /// </summary>
         [JsonPropertyName("crime")]
-        public Crime Crime { get; set; }
+        public Crime? Crime { get; set; }
     }
 }

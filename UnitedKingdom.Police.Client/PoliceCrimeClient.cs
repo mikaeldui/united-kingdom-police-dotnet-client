@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 using System.Text;
@@ -23,7 +24,7 @@ namespace UnitedKingdom.Police
         /// <param name="longitude">Longitude of the requested crime area</param>
         /// <param name="category">You can provide any crime category as part of the request URL.</param>
         /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
-        public async Task<StreetlevelCrime[]?> GetStreetlevelCrimeAsync(double latitude, double longitude, string category, DateTime? date = null)
+        public async Task<Crime[]?> GetStreetlevelCrimesAsync(double latitude, double longitude, string category, DateTime? date = null)
         {
             if (category != null)
             {
@@ -34,7 +35,7 @@ namespace UnitedKingdom.Police
             {
                 url += $"&date={date:yyyy-MM}";
             }
-            return await _httpClient.GetFromJsonAsync<StreetlevelCrime[]>(url);
+            return await _httpClient.GetFromJsonAsync<Crime[]>(url);
         }
 
         /// <summary>
@@ -43,8 +44,8 @@ namespace UnitedKingdom.Police
         /// <param name="latitude">Latitude of the requested crime area</param>
         /// <param name="longitude">Longitude of the requested crime area</param>
         /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
-        public async Task<StreetlevelCrime[]?> GetStreetlevelCrimeAsync(double latitude, double longitude, DateTime? date = null) =>
-            await GetStreetlevelCrimeAsync(latitude, longitude, ALL_CRIME, date);
+        public async Task<Crime[]?> GetStreetlevelCrimesAsync(double latitude, double longitude, DateTime? date = null) =>
+            await GetStreetlevelCrimesAsync(latitude, longitude, ALL_CRIME, date);
 
         /// <summary>
         /// Crimes at street-level within a 1 mile radius of a single point.
@@ -53,8 +54,8 @@ namespace UnitedKingdom.Police
         /// <param name="longitude">Longitude of the requested crime area</param>
         /// <param name="category">You can provide any crime category as part of the request URL.</param>
         /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
-        public async Task<StreetlevelCrime[]?> GetStreetlevelCrimeAsync(double latitude, double longitude, CrimeCategory category, DateTime? date = null) =>
-            await GetStreetlevelCrimeAsync(latitude, longitude, category.Url, date);
+        public async Task<Crime[]?> GetStreetlevelCrimesAsync(double latitude, double longitude, CrimeCategory category, DateTime? date = null) =>
+            await GetStreetlevelCrimesAsync(latitude, longitude, category.Url, date);
 
         #endregion Point
 
@@ -67,7 +68,7 @@ namespace UnitedKingdom.Police
         /// <param name="longitude">Longitude of the requested crime area</param>
         /// <param name="category">You can provide any crime category as part of the request URL.</param>
         /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
-        public async Task<StreetlevelCrime[]?> GetStreetlevelCrimeAsync(IEnumerable<(double latitude, double longitude)> polygon, string category, DateTime? date = null)
+        public async Task<Crime[]?> GetStreetlevelCrimesAsync(IEnumerable<(double latitude, double longitude)> polygon, string category, DateTime? date = null)
         {
             if (category != null)
             {
@@ -78,7 +79,7 @@ namespace UnitedKingdom.Police
             {
                 url += $"&date={date:yyyy-MM}";
             }
-            return await _httpClient.GetFromJsonAsync<StreetlevelCrime[]>(url);
+            return await _httpClient.GetFromJsonAsync<Crime[]>(url);
         }
 
         /// <summary>
@@ -87,8 +88,8 @@ namespace UnitedKingdom.Police
         /// <param name="polygon">The lat/lng pairs which define the boundary of the custom area</param>
         /// <param name="longitude">Longitude of the requested crime area</param>
         /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
-        public async Task<StreetlevelCrime[]?> GetStreetlevelCrimeAsync(IEnumerable<(double latitude, double longitude)> polygon, DateTime? date = null) =>
-            await GetStreetlevelCrimeAsync(polygon, ALL_CRIME, date);
+        public async Task<Crime[]?> GetStreetlevelCrimesAsync(IEnumerable<(double latitude, double longitude)> polygon, DateTime? date = null) =>
+            await GetStreetlevelCrimesAsync(polygon, ALL_CRIME, date);
 
         /// <summary>
         /// Crimes at street-level within a custom area. If a custom area contains more than 10,000 crimes, the API will return a 503 status code.
@@ -97,8 +98,8 @@ namespace UnitedKingdom.Police
         /// <param name="longitude">Longitude of the requested crime area</param>
         /// <param name="category">You can provide any crime category as part of the request URL.</param>
         /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
-        public async Task<StreetlevelCrime[]?> GetStreetlevelCrimeAsync(IEnumerable<(double latitude, double longitude)> polygon, CrimeCategory category, DateTime? date = null) =>
-            await GetStreetlevelCrimeAsync(polygon, category.Url, date);
+        public async Task<Crime[]?> GetStreetlevelCrimesAsync(IEnumerable<(double latitude, double longitude)> polygon, CrimeCategory category, DateTime? date = null) =>
+            await GetStreetlevelCrimesAsync(polygon, category.Url, date);
 
         #endregion Area
 
@@ -133,6 +134,72 @@ namespace UnitedKingdom.Police
 
         #endregion GetStreetLevelOutcomesAsync
 
+        #region GetCrimesAtLocation
+
+        /// <summary>
+        /// Returns just the crimes which occurred at the specified location, rather than those within a radius.
+        /// </summary>
+        /// <param name="date">Year and month.</param>
+        /// <param name="locationId"> Crimes and outcomes are mapped to specific locations on the map. Valid IDs are returned by other methods(new and existing) which return location information.</param>
+        public async Task<Crime[]?> GetCrimesAtLocationAsync(DateTime date, int locationId) =>
+            await _httpClient.GetFromJsonAsync<Crime[]>($"crimes-at-location?date={date:yyyy-MM}&location_id={locationId}");
+
+        /// <summary>
+        /// Returns just the crimes which occurred at the specified location, rather than those within a radius. Given latitude and longitude, finds the nearest pre-defined location and returns the crimes which occurred there.
+        /// </summary>
+        /// <param name="date">Year and month.</param>
+        /// <param name="latitude">Latitude of the requested crime area.</param>
+        /// <param name="longitude">Longitude of the requested crime area.</param>
+        public async Task<Crime[]?> GetCrimesAtLocationAsync(DateTime date, double latitude, double longitude) =>
+            await _httpClient.GetFromJsonAsync<Crime[]>($"crimes-at-location?date={date:yyyy-MM}&lat={latitude}&lng={longitude}");
+
+        #endregion GetCrimesAtLocation
+
+        #region GetCrimesNoLocation
+
+        /// <summary>
+        /// Returns a list of crimes that could not be mapped to a location.
+        /// </summary>
+        /// <param name="category">The category of the crimes. See https://data.police.uk/docs/method/crime-categories/</param>
+        /// <param name="force">Specific police force.</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
+        public async Task<Crime[]?> GetCrimesNoLocationAsync(string category, string force, DateTime? date = null)
+        {
+            var url = $"crimes-no-location?category={category}&force={force}";
+            if (date != null)
+                url += $"&date={date:yyyy-MM}";
+            return await _httpClient.GetFromJsonAsync<Crime[]>(url);
+        }
+
+        /// <summary>
+        /// Returns a list of crimes that could not be mapped to a location.
+        /// </summary>
+        /// <param name="category">The category of the crimes.</param>
+        /// <param name="force">Specific police force.</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
+        public async Task<Crime[]?> GetCrimesNoLocationAsync(CrimeCategory category, string force, DateTime? date = null) =>
+            await GetCrimesNoLocationAsync(category.Url, force, date);
+
+        /// <summary>
+        /// Returns a list of crimes that could not be mapped to a location.
+        /// </summary>
+        /// <param name="category">The category of the crimes.</param>
+        /// <param name="force">Specific police force.</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
+        public async Task<Crime[]?> GetCrimesNoLocationAsync(CrimeCategory category, Force force, DateTime? date = null) =>
+            await GetCrimesNoLocationAsync(category.Url, force.Id, date);
+
+        /// <summary>
+        /// Returns a list of crimes that could not be mapped to a location.
+        /// </summary>
+        /// <param name="category">The category of the crimes.</param>
+        /// <param name="force">Specific police force.</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
+        public async Task<Crime[]?> GetCrimesNoLocationAsync(string category, Force force, DateTime? date = null) =>
+            await GetCrimesNoLocationAsync(category, force.Id, date);
+
+        #endregion GetCrimesNoLocation
+
         /// <summary>
         /// Returns a list of valid categories for a given data set date.
         /// </summary>
@@ -140,5 +207,39 @@ namespace UnitedKingdom.Police
         public async Task<CrimeCategory[]?> GetCrimeCategoriesAsync(DateTime date) =>
             await _httpClient.GetFromJsonAsync<CrimeCategory[]>($"crime-categories?date={date:yyyy-MM}");
 
+        /// <summary>
+        /// Crime data in the API is updated once a month. Find out when it was last updated.
+        /// </summary>
+        public async Task<DateTime?> GetLastUpdatedAsync()
+        {
+            var result = await _httpClient.GetFromJsonAsync<Dictionary<string, DateTime>>("crime-last-updated");
+            return result.First().Value;
+        }
+
+        /// <summary>
+        /// Returns the outcomes (case history) for the specified crime. Crime ID is 64-character identifier, as returned by other API methods.
+        /// </summary>
+        /// <param name="persistentId">Crime ID (persistent ID) is 64-character identifier, as returned by other API methods. E.g. "590d68b69228a9ff95b675bb4af591b38de561aa03129dc09a03ef34f537588c".</param>
+        /// <returns></returns>
+        public async Task<OutcomesForCrime?> GetOutcomesForCrimeAsync(string persistentId) =>
+            await _httpClient.GetFromJsonAsync<OutcomesForCrime>("outcomes-for-crime/" + persistentId);
+    }
+
+    /// <summary>
+    /// Returns the outcomes (case history) for the specified crime. Crime ID is 64-character identifier, as returned by other API methods.
+    /// </summary>
+    public class OutcomesForCrime
+    {
+        /// <summary>
+        /// Crime information.
+        /// </summary>
+        [JsonPropertyName("crime")]
+        public Crime Crime { get; set; }
+
+        /// <summary>
+        /// A list of categories and dates of each outcome.
+        /// </summary>
+        [JsonPropertyName("outcomes")]
+        public Outcome[] Outcomes { get; set; }
     }
 }

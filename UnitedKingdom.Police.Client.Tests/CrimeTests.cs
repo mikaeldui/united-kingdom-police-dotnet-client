@@ -13,7 +13,7 @@ namespace UnitedKingdom.Police.Tests
         public async Task GetStreetlevelCrimeByPointAsync()
         {
             using var client = new PoliceClient();
-            var result = await client.Crimes.GetStreetlevelCrimeAsync(51.375487, -0.096780, DateTime.Now.AddMonths(-3));
+            var result = await client.Crimes.GetStreetlevelCrimesAsync(51.375487, -0.096780, DateTime.Now.AddMonths(-3));
             Assert.IsTrue(result.Any());
         }
 
@@ -27,7 +27,7 @@ namespace UnitedKingdom.Police.Tests
                 (52.130, 0.478)
             };
             using var client = new PoliceClient();
-            var result = await client.Crimes.GetStreetlevelCrimeAsync(area, DateTime.Now.AddMonths(-3));
+            var result = await client.Crimes.GetStreetlevelCrimesAsync(area, DateTime.Now.AddMonths(-3));
             Assert.IsTrue(result.Any());
         }
 
@@ -64,6 +64,35 @@ namespace UnitedKingdom.Police.Tests
         }
 
         [TestMethod]
+        public async Task GetCrimesAtLocationByIdAsync()
+        {
+            using var client = new PoliceClient();
+            var crimes = await client.Crimes.GetStreetlevelCrimesAsync(51.375487, -0.096780, DateTime.Now.AddMonths(-3));
+
+            var result = await client.Crimes.GetCrimesAtLocationAsync(DateTime.Now.AddMonths(-3), crimes.First().Location.Street.Id);
+            Assert.IsTrue(result.Any());
+        }
+
+
+        [TestMethod]
+        public async Task GetCrimesAtLocationByCoordinatesAsync()
+        {
+            using var client = new PoliceClient();
+            var crimes = await client.Crimes.GetStreetlevelCrimesAsync(51.375487, -0.096780, DateTime.Now.AddMonths(-3));
+
+            var result = await client.Crimes.GetCrimesAtLocationAsync(DateTime.Now.AddMonths(-3), crimes.First().Location.Latitude, crimes.First().Location.Longitude);
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public async Task GetCrimesNoLocationAsync()
+        {
+            var client = new PoliceClient();
+            var result = await client.Crimes.GetCrimesNoLocationAsync("all-crimes", "leicestershire", DateTime.Now.AddMonths(-3));
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
         public async Task GetCrimeCategoriesAsync()
         {
             using var client = new PoliceClient();
@@ -71,6 +100,26 @@ namespace UnitedKingdom.Police.Tests
             Assert.IsTrue(result.Any());
             Assert.IsNotNull(result.First().Name);
             Assert.IsNotNull(result.First().Url);
+        }
+
+        [TestMethod]
+        public async Task GetLastUpdatedAsync()
+        {
+            using var client = new PoliceClient();
+            var result = await client.Crimes.GetLastUpdatedAsync();
+            Assert.IsTrue(result > DateTime.Now.AddMonths(-4));
+        }
+
+        [TestMethod]
+        public async Task GetOutcomesForCrimeAsync()
+        {
+            using var client = new PoliceClient();
+            var crimes = await client.Crimes.GetStreetlevelCrimesAsync(51.375487, -0.096780, DateTime.Now.AddMonths(-3));
+            var result = await client.Crimes.GetOutcomesForCrimeAsync(crimes.First(c => c.OutcomeStats != null).PersistentId);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Outcomes.Any());
+            Assert.IsNotNull(result.Crime);
+            Assert.IsNotNull(result.Crime.Category);
         }
     }
 }
