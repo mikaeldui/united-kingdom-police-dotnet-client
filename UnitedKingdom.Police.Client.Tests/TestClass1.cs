@@ -10,9 +10,11 @@ namespace UnitedKingdom.Police.Tests
     public class TestClass1
     {
         [TestMethod]
-        public void TestMethod1()
+        public async Task GetAvailabilityAsync()
         {
-
+            using var client = new PoliceClient();
+            var result = await client.GetAvailabilityAsync();
+            Assert.IsTrue(result.Any());
         }
     }
 }
