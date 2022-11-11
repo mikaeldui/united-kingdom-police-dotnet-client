@@ -70,5 +70,31 @@ namespace UnitedKingdom.Police
 
             return await _httpClient.GetFromJsonAsync<StopAndSearch[]>(url);
         }
+
+        /// <summary>
+        /// Stop and searches that could not be mapped to a location.
+        /// </summary>
+        /// <param name="force">The force that carried out the stop and searches</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default.</param>
+        public async Task<StopAndSearch[]?> GetStopAndSearchesWithNoLocationAsync(string force, DateTime? date = null)
+        {
+            var url = $"stops-no-location?force={force}";
+
+            if (date != null)
+            {
+                url += $"&date={date:yyyy-MM}";
+            }
+
+            return await _httpClient.GetFromJsonAsync<StopAndSearch[]>(url);
+        }
+
+        /// <summary>
+        /// Stop and searches that could not be mapped to a location.
+        /// </summary>
+        /// <param name="force">The force that carried out the stop and searches</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default.</param>
+        public async Task<StopAndSearch[]?> GetStopAndSearchesWithNoLocationasync(Force force, DateTime? date = null) =>
+            await GetStopAndSearchesWithNoLocationAsync(force.Id, date);
+
     }
 }
