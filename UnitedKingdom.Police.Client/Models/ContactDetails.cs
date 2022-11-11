@@ -3,7 +3,7 @@
 namespace UnitedKingdom.Police
 {
     /// <summary>
-    /// Contact details for the senior officer.
+    /// Contact details for the senior officer, or ways to get in touch with the neighbourhood officers.
     /// </summary>
     public class ContactDetails
     {

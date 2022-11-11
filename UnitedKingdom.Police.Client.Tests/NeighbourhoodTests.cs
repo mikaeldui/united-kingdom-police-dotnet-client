@@ -18,5 +18,16 @@ namespace UnitedKingdom.Police.Tests
             Assert.IsNotNull(result.First().Id);        
             Assert.IsNotNull(result.First().Name);        
         }
+
+        [TestMethod]
+        public async Task GetNeighbourhoodsAsync()
+        {
+            using var client = new PoliceClient();
+            var result = await client.Neighbourhoods.GetNeighbourhoodsAsync("leicestershire");
+
+            Assert.IsTrue(result.Any());
+            Assert.IsNotNull(result.First().Id);
+            Assert.IsNotNull(result.First().Name);
+        }
     }
 }

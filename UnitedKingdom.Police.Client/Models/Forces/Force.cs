@@ -37,7 +37,7 @@ namespace UnitedKingdom.Police
         /// Ways to keep informed.
         /// </summary>
         [JsonPropertyName("engagement_methods")]        
-        public EngagementMethod[]? EngagementMethods { get; set; }
+        public Link[]? EngagementMethods { get; set; }
 
         /// <summary>
         /// Force telephone number.
@@ -46,26 +46,5 @@ namespace UnitedKingdom.Police
         public string? Telephone { get; set; }
 
         #endregion
-    }
-
-    public class EngagementMethod
-    {
-        /// <summary>
-        /// Method website URL.
-        /// </summary>
-        [JsonPropertyName("url")]
-        public Uri Url { get; set; }
-
-        /// <summary>
-        /// Method description.
-        /// </summary>
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Method title.
-        /// </summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
     }
 }
