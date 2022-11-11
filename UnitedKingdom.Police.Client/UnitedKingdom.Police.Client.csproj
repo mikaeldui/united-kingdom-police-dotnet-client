@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>UnitedKingdom.Police</RootNamespace>
+    <PackageId>MikaelDui.UnitedKingdom.Police.Client</PackageId>
+    <Authors>Mikael Dúi Bolinder</Authors>
+    <Product>MikaelDui.UnitedKingdom.Police.Client</Product>
+    <Description>This project is really awesome!</Description>
+    <PackageProjectUrl>https://github.com/mikaeldui/united-kingdom-police-dotnet-client</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>UnitedKingdom.Police.Client.png</PackageIcon>
+    <RepositoryUrl>https://github.com/mikaeldui/united-kingdom-police-dotnet-client</RepositoryUrl>
+    <PackageTags></PackageTags>
+    <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+    <AssemblyName>MikaelDui.UnitedKingdom.Police.Client</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\UnitedKingdom.Police.Client.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MikaelDui.Extensions" Version="*" />
+  </ItemGroup>
+
+</Project>
