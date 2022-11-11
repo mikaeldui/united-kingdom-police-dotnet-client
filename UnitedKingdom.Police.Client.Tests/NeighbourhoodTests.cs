@@ -20,14 +20,26 @@ namespace UnitedKingdom.Police.Tests
         }
 
         [TestMethod]
-        public async Task GetNeighbourhoodsAsync()
+        public async Task GetNeighbourhoodAsync()
         {
             using var client = new PoliceClient();
-            var result = await client.Neighbourhoods.GetNeighbourhoodsAsync("leicestershire");
+            var neighbourhoods = await client.Neighbourhoods.GetNeighbourhoodsAsync("leicestershire");
+
+            var result = await client.Neighbourhoods.GetNeighbourhoodAsync("leicestershire", neighbourhoods.First());
+
+            Assert.IsNotNull(result.Id);
+            Assert.IsNotNull(result.Name);
+        }
+
+        [TestMethod]
+        public async Task GetNeighbourhoodBoundaryAsync()
+        {
+            using var client = new PoliceClient();
+            var neighbourhoods = await client.Neighbourhoods.GetNeighbourhoodsAsync("leicestershire");
+
+            var result = await client.Neighbourhoods.GetNeighbourhoodBoundaryAsync("leicestershire", neighbourhoods.First());
 
             Assert.IsTrue(result.Any());
-            Assert.IsNotNull(result.First().Id);
-            Assert.IsNotNull(result.First().Name);
         }
     }
 }

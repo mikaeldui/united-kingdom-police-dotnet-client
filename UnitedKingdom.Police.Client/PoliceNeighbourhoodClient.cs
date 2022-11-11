@@ -56,7 +56,36 @@ namespace UnitedKingdom.Police
         public async Task<Neighbourhood?> GetNeighbourhoodAsync(string forceId, Neighbourhood neighbourhood) =>
             await GetNeighbourhoodAsync(forceId, neighbourhood.Id);
 
+        #endregion
+
+        #region Get Neighbourhood
+
+        /// <summary>
+        /// A list of latitude/longitude pairs that make up the boundary of a neighbourhood.
+        /// </summary>
+        public async Task<Coordinate[]?> GetNeighbourhoodBoundaryAsync(string forceId, string neighbourhoodId) =>
+            await _httpClient.GetFromJsonAsync<Coordinate[]>(forceId + "/" + neighbourhoodId + "/boundary");
+
+        /// <summary>
+        /// A list of latitude/longitude pairs that make up the boundary of a neighbourhood.
+        /// </summary>
+        public async Task<Coordinate[]?> GetNeighbourhoodBoundaryAsync(Force force, string neighbourhoodId) =>
+            await GetNeighbourhoodBoundaryAsync(force.Id, neighbourhoodId);
+
+        /// <summary>
+        /// A list of latitude/longitude pairs that make up the boundary of a neighbourhood.
+        /// </summary>
+        public async Task<Coordinate[]?> GetNeighbourhoodBoundaryAsync(Force force, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodBoundaryAsync(force.Id, neighbourhood.Id);
+
+        /// <summary>
+        /// A list of latitude/longitude pairs that make up the boundary of a neighbourhood.
+        /// </summary>
+        public async Task<Coordinate[]?> GetNeighbourhoodBoundaryAsync(string forceId, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodBoundaryAsync(forceId, neighbourhood.Id);
+
         #endregion 
+
     }
 
     public class Neighbourhood

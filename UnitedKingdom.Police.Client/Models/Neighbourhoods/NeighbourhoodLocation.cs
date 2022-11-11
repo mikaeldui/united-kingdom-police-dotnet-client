@@ -42,5 +42,17 @@ namespace UnitedKingdom.Police
         /// </summary>
         [JsonPropertyName("description")]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Latitude
+        /// </summary>
+        [JsonPropertyName("latitude")]
+        public new double? Latitude { get; set; }
+
+        /// <summary>
+        /// Longitude
+        /// </summary>
+        [JsonPropertyName("longitude")]
+        public new double? Longitude { get; set; }
     }
 }
