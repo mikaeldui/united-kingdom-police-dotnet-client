@@ -37,5 +37,21 @@ namespace UnitedKingdom.Police
         public async Task<StopAndSearch[]?> GetStopAndSearchesByAreaAsync(Coordinate coordinate, DateTime? date) =>
             await GetStopAndSearchesByAreaAsync(coordinate.Latitude, coordinate.Longitude, date);
 
+        /// <summary>
+        /// Stop and searches at street-level within a 1 mile radius of a single point.
+        /// </summary>
+        /// <param name="polygon">The lat/lng pairs which define the boundary of the custom area. The first and last coordinates need not be the same — they will be joined by a straight line once the request is made.</param>
+        /// <param name="date">Optional. (YYYY-MM) Limit results to a specific month. The latest month will be shown by default</param>
+        public async Task<StopAndSearch[]?> GetStopAndSearchesByAreaAsync(IEnumerable<(double latitude, double longitude)> polygon, DateTime? date)
+        {
+            var url = $"stops-street?poly={string.Join(":", polygon.Select(c => $"{c.latitude},{c.longitude}"))}";
+
+            if (date != null)
+            {
+                url += $"&date={date:yyyy-MM}";
+            }
+
+            return await _httpClient.GetFromJsonAsync<StopAndSearch[]>(url);
+        }
     }
 }

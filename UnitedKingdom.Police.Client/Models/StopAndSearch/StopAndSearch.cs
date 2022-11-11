@@ -25,8 +25,8 @@ namespace UnitedKingdom.Police
         /// <summary>
         /// Whether this stop and search was part of a policing operation.
         /// </summary>
-        [JsonPropertyName("operation")]
-        public string? Operation { get; set; }
+        [JsonPropertyName("operation"), JsonConverter(typeof(StringOrFalseJsonConverter))]
+        public string Operation { get; set; }
 
         /// <summary>
         /// The name of the operation this stop and search was part of.

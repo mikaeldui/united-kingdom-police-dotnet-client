@@ -16,5 +16,19 @@ namespace UnitedKingdom.Police.Tests
             var result = await client.StopAndSearch.GetStopAndSearchesByAreaAsync(52.629729, -1.131592, DateTime.Now.AddMonths(-3));
             Assert.IsTrue(result.Any());
         }
+
+        [TestMethod]
+        public async Task GetStopAndSearchesByAreaByAreaAsync()
+        {
+            var area = new (double latitude, double longitude)[]
+            {
+                (52.2, 0.5),
+                (52.8, 0.2),
+                (52.1, 0.88)
+            };
+            using var client = new PoliceClient();
+            var result = await client.StopAndSearch.GetStopAndSearchesByAreaAsync(area, DateTime.Now.AddMonths(-3));
+            Assert.IsTrue(result.Any());
+        }
     }
 }
