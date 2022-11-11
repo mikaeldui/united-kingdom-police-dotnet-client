@@ -14,7 +14,7 @@ namespace UnitedKingdom.Police
         /// Contact details for the senior officer.
         /// </summary>
         [JsonPropertyName("contact_details")]
-        public SeniorOfficerContactDetails? ContactDetails { get; set; }
+        public ContactDetails? ContactDetails { get; set; }
 
         /// <summary>
         /// Name of the person.

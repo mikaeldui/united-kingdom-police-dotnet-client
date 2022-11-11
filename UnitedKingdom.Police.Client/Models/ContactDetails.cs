@@ -5,7 +5,7 @@ namespace UnitedKingdom.Police
     /// <summary>
     /// Contact details for the senior officer.
     /// </summary>
-    public class SeniorOfficerContactDetails
+    public class ContactDetails
     {
         /// <summary>
         /// Email address.

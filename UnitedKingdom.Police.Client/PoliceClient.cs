@@ -7,6 +7,7 @@ namespace UnitedKingdom.Police
         private HttpClient _httpClient;
         private PoliceForceClient? _forceClient;
         private PoliceCrimeClient? _crimeClient;
+        private PoliceNeighbourhoodClient? _neighbourhoodsClient;
 
         public PoliceClient()
         {
@@ -25,11 +26,16 @@ namespace UnitedKingdom.Police
         /// Force related.
         /// </summary>
         public PoliceForceClient Forces => _forceClient ??= new PoliceForceClient(_httpClient);
-        
+
         /// <summary>
         /// Crime related.
         /// </summary>
         public PoliceCrimeClient Crimes => _crimeClient ??= new PoliceCrimeClient(_httpClient);
+        
+        /// <summary>
+        /// Neighbourhood related.
+        /// </summary>
+        public PoliceNeighbourhoodClient Neighbourhoods => _neighbourhoodsClient ??= new PoliceNeighbourhoodClient(_httpClient);
 
         public void Dispose() => ((IDisposable)_httpClient).Dispose();
     }
