@@ -5,6 +5,8 @@ namespace UnitedKingdom.Police
     public class PoliceClient : IDisposable
     {
         private HttpClient _httpClient;
+        private PoliceForceClient? _forceClient;
+        private PoliceCrimeClient? _crimeClient;
 
         public PoliceClient()
         {
@@ -19,9 +21,15 @@ namespace UnitedKingdom.Police
         /// </summary>
         public async Task<Availability[]?> GetAvailabilityAsync() => await _httpClient.GetFromJsonAsync<Availability[]>("crimes-street-dates");
 
-        private PoliceForceClient _forceClient;
-
+        /// <summary>
+        /// Force related.
+        /// </summary>
         public PoliceForceClient Forces => _forceClient ??= new PoliceForceClient(_httpClient);
+        
+        /// <summary>
+        /// Crime related.
+        /// </summary>
+        public PoliceCrimeClient Crimes => _crimeClient ??= new PoliceCrimeClient(_httpClient);
 
         public void Dispose() => ((IDisposable)_httpClient).Dispose();
     }

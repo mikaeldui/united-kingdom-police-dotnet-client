@@ -32,7 +32,7 @@ namespace UnitedKingdom.Police.Tests
         public async Task GetPeopleAsync()
         {
             using var client = new PoliceClient();
-            var result = await client.Forces.GetPeopleAsync("leicestershire"); // barely any have listed senior officers...
+            var result = await client.Forces.GetSeniorOfficersAsync("leicestershire"); // barely any have listed senior officers...
             Assert.IsTrue(result.Any());
             Assert.IsNotNull(result.First().Rank);
         }

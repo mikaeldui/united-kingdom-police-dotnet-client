@@ -8,7 +8,7 @@ namespace UnitedKingdom.Police
 {
     public class PoliceForceClient
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
         internal PoliceForceClient(HttpClient httpClient) 
         { 
             _httpClient = httpClient;
@@ -26,9 +26,9 @@ namespace UnitedKingdom.Police
 
         public async Task<Force?> GetForceAsync(Force force) => await GetForceAsync(force.Id);
 
-        public async Task<Person[]?> GetPeopleAsync(string forceId) =>
-            await _httpClient.GetFromJsonAsync<Person[]>($"forces/{forceId}/people");
+        public async Task<SeniorOfficer[]?> GetSeniorOfficersAsync(string forceId) =>
+            await _httpClient.GetFromJsonAsync<SeniorOfficer[]>($"forces/{forceId}/people");
 
-        public async Task<Person[]?> GetPeopleAsync(Force force) => await GetPeopleAsync(force.Id);
+        public async Task<SeniorOfficer[]?> GetSeniorOfficersAsync(Force force) => await GetSeniorOfficersAsync(force.Id);
     }
 }
