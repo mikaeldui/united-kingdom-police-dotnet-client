@@ -170,5 +170,19 @@ namespace UnitedKingdom.Police
 
         #endregion 
 
+        /// <summary>
+        /// Find the neighbourhood policing team responsible for a particular area.
+        /// </summary>
+        public async Task<(string force, string neighbourhood)> GetNeighbourhoodForLocationAsync(double latitude, double longitude)
+        {
+            var result = await _httpClient.GetFromJsonAsync<Dictionary<string, string>>($"locate-neighbourhood?q={latitude},{longitude}");
+            return (result["force"], result["neighbourhood"]);
+        }
+
+        /// <summary>
+        /// Find the neighbourhood policing team responsible for a particular area.
+        /// </summary>
+        public async Task<(string force, string neighbourhood)> GetNeighbourhoodForLocationAsync(Coordinate coordinate) =>
+            await GetNeighbourhoodForLocationAsync(coordinate.Latitude, coordinate.Longitude);
     }
 }

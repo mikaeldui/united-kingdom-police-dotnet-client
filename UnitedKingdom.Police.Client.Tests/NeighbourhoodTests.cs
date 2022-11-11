@@ -98,5 +98,15 @@ namespace UnitedKingdom.Police.Tests
                 Assert.Inconclusive("No events found.");
             }
         }
+
+        [TestMethod]
+        public async Task GetNeighbourhoodForLocationAsync()
+        {
+            using var client = new PoliceClient();
+            var result = await client.Neighbourhoods.GetNeighbourhoodForLocationAsync(51.500617, -0.124629);
+
+            Assert.IsNotNull(result.force, "Force is null.");
+            Assert.IsNotNull(result.neighbourhood, "Neighbourhood is null.");
+        }
     }
 }
