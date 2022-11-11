@@ -58,7 +58,7 @@ namespace UnitedKingdom.Police
 
         #endregion
 
-        #region Get Neighbourhood
+        #region Get Neighbourhood Boundary
 
         /// <summary>
         /// A list of latitude/longitude pairs that make up the boundary of a neighbourhood.
@@ -84,68 +84,62 @@ namespace UnitedKingdom.Police
         public async Task<Coordinate[]?> GetNeighbourhoodBoundaryAsync(string forceId, Neighbourhood neighbourhood) =>
             await GetNeighbourhoodBoundaryAsync(forceId, neighbourhood.Id);
 
+        #endregion
+
+        #region Get Neighbourhood Team
+
+        /// <summary>
+        /// Neighbourhood team
+        /// </summary>
+        public async Task<Person[]?> GetNeighbourhoodTeamAsync(string forceId, string neighbourhoodId) =>
+            await _httpClient.GetFromJsonAsync<Person[]>(forceId + "/" + neighbourhoodId + "/team");
+
+        /// <summary>
+        /// Neighbourhood team
+        /// </summary>
+        public async Task<Person[]?> GetNeighbourhoodTeamAsync(Force force, string neighbourhoodId) =>
+            await GetNeighbourhoodTeamAsync(force.Id, neighbourhoodId);
+
+        /// <summary>
+        /// Neighbourhood team
+        /// </summary>
+        public async Task<Person[]?> GetNeighbourhoodTeamAsync(Force force, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodTeamAsync(force.Id, neighbourhood.Id);
+
+        /// <summary>
+        /// Neighbourhood team
+        /// </summary>
+        public async Task<Person[]?> GetNeighbourhoodTeamAsync(string forceId, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodTeamAsync(forceId, neighbourhood.Id);
+
+        #endregion
+
+        #region Get Neighbourhood Events
+
+        /// <summary>
+        /// Neighbourhood events
+        /// </summary>
+        public async Task<NeighbourhoodEvent[]?> GetNeighbourhoodEventsAsync(string forceId, string neighbourhoodId) =>
+            await _httpClient.GetFromJsonAsync<NeighbourhoodEvent[]>(forceId + "/" + neighbourhoodId + "/team");
+
+        /// <summary>
+        /// Neighbourhood events
+        /// </summary>
+        public async Task<NeighbourhoodEvent[]?> GetNeighbourhoodEventsAsync(Force force, string neighbourhoodId) =>
+            await GetNeighbourhoodEventsAsync(force.Id, neighbourhoodId);
+
+        /// <summary>
+        /// Neighbourhood events
+        /// </summary>
+        public async Task<NeighbourhoodEvent[]?> GetNeighbourhoodEventsAsync(Force force, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodEventsAsync(force.Id, neighbourhood.Id);
+
+        /// <summary>
+        /// Neighbourhood events
+        /// </summary>
+        public async Task<NeighbourhoodEvent[]?> GetNeighbourhoodEventsAsync(string forceId, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodEventsAsync(forceId, neighbourhood.Id);
+
         #endregion 
-
-    }
-
-    public class Neighbourhood
-    {
-        /// <summary>
-        /// Police force specific team identifier.
-        /// Note: this identifier is not unique and may also be used by a different force
-        /// </summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Name for the neighbourhood.
-        /// </summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// URL for the neighbourhood on the Force's website.
-        /// </summary>
-        [JsonPropertyName("url_force")]
-        public Uri? ForceUrl { get; set; }
-
-        /// <summary>
-        /// Ways to get in touch with the neighbourhood officers.
-        /// </summary>
-        [JsonPropertyName("contact_details")]
-        public ContactDetails? ContactDetails { get; set; }
-
-        [JsonPropertyName("links")]
-        public Link[]? Links { get; set; }
-
-        /// <summary>
-        /// Centre point locator for the neighbourhood. Note: This may not be exactly in the centre of the neighbourhood
-        /// </summary>
-        [JsonPropertyName("centre")]
-        public Coordinate? Centre { get; set; }
-
-        /// <summary>
-        /// Any associated locations with the neighbourhood, e.g. police stations.
-        /// </summary>
-        [JsonPropertyName("locations")]
-        public NeighbourhoodLocation[]? Locations { get; set; }
-
-        /// <summary>
-        /// Description (if available).
-        /// </summary>
-        [JsonPropertyName("description")]
-        public string? Description { get; set; }
-
-        /// <summary>
-        /// An introduction message for the neighbourhood.
-        /// </summary>
-        [JsonPropertyName("welcome_message")]
-        public string? WelcomeMessage { get; set; }
-
-        /// <summary>
-        /// Population of the neighbourhood.
-        /// </summary>
-        [JsonPropertyName("population")]
-        public string? Population { get; set; }
     }
 }

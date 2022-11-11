@@ -2,16 +2,16 @@
 
 namespace UnitedKingdom.Police
 {
-    public class SeniorOfficer
+    public class Person
     {
         /// <summary>
-        /// Senior officer biography (if available).
+        /// Biography (if available).
         /// </summary>
         [JsonPropertyName("bio")]
         public string? Bio { get; set; }
 
         /// <summary>
-        /// Contact details for the senior officer.
+        /// Contact details.
         /// </summary>
         [JsonPropertyName("contact_details")]
         public ContactDetails? ContactDetails { get; set; }

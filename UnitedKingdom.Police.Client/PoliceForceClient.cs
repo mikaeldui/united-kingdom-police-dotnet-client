@@ -26,9 +26,9 @@ namespace UnitedKingdom.Police
 
         public async Task<Force?> GetForceAsync(Force force) => await GetForceAsync(force.Id);
 
-        public async Task<SeniorOfficer[]?> GetSeniorOfficersAsync(string forceId) =>
-            await _httpClient.GetFromJsonAsync<SeniorOfficer[]>($"forces/{forceId}/people");
+        public async Task<Person[]?> GetSeniorOfficersAsync(string forceId) =>
+            await _httpClient.GetFromJsonAsync<Person[]>($"forces/{forceId}/people");
 
-        public async Task<SeniorOfficer[]?> GetSeniorOfficersAsync(Force force) => await GetSeniorOfficersAsync(force.Id);
+        public async Task<Person[]?> GetSeniorOfficersAsync(Force force) => await GetSeniorOfficersAsync(force.Id);
     }
 }
