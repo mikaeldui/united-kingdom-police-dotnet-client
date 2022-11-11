@@ -32,6 +32,38 @@ namespace UnitedKingdom.Police.Tests
         }
 
         [TestMethod]
+        public async Task GetStreetlevelOutcomesByLocationAsync()
+        {
+            using var client = new PoliceClient();
+            var outcomes = await client.Crimes.GetStreetlevelOutcomesAsync(DateTime.Now.AddMonths(-3), 51.375487, -0.096780);
+
+            var result = await client.Crimes.GetStreetlevelOutcomesAsync(DateTime.Now.AddMonths(-3), outcomes.First().Crime.Location.Street.Id);
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public async Task GetStreetlevelOutcomesByPointAsync()
+        {
+            using var client = new PoliceClient();
+            var result = await client.Crimes.GetStreetlevelOutcomesAsync(DateTime.Now.AddMonths(-3), 51.375487, -0.096780);
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public async Task GetStreetlevelOutcomesByAreaAsync()
+        {
+            var area = new (double latitude, double longitude)[]
+            {
+                (52.268, 0.543),
+                (52.794, 0.238),
+                (52.130, 0.478)
+            };
+            using var client = new PoliceClient();
+            var result = await client.Crimes.GetStreetlevelOutcomesAsync(DateTime.Now.AddMonths(-3), area);
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
         public async Task GetCrimeCategoriesAsync()
         {
             using var client = new PoliceClient();
