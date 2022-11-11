@@ -120,7 +120,7 @@ namespace UnitedKingdom.Police
         /// Neighbourhood events
         /// </summary>
         public async Task<NeighbourhoodEvent[]?> GetNeighbourhoodEventsAsync(string forceId, string neighbourhoodId) =>
-            await _httpClient.GetFromJsonAsync<NeighbourhoodEvent[]>(forceId + "/" + neighbourhoodId + "/team");
+            await _httpClient.GetFromJsonAsync<NeighbourhoodEvent[]>(forceId + "/" + neighbourhoodId + "/events");
 
         /// <summary>
         /// Neighbourhood events
@@ -140,6 +140,35 @@ namespace UnitedKingdom.Police
         public async Task<NeighbourhoodEvent[]?> GetNeighbourhoodEventsAsync(string forceId, Neighbourhood neighbourhood) =>
             await GetNeighbourhoodEventsAsync(forceId, neighbourhood.Id);
 
+        #endregion
+
+        #region Get Neighbourhood Priorities
+
+        /// <summary>
+        /// Neighbourhood priorities
+        /// </summary>
+        public async Task<NeighbourhoodPriority[]?> GetNeighbourhoodPrioritiesAsync(string forceId, string neighbourhoodId) =>
+            await _httpClient.GetFromJsonAsync<NeighbourhoodPriority[]>(forceId + "/" + neighbourhoodId + "/priorities");
+
+        /// <summary>
+        /// Neighbourhood priorities
+        /// </summary>
+        public async Task<NeighbourhoodPriority[]?> GetNeighbourhoodPrioritiesAsync(Force force, string neighbourhoodId) =>
+            await GetNeighbourhoodPrioritiesAsync(force.Id, neighbourhoodId);
+
+        /// <summary>
+        /// Neighbourhood priorities
+        /// </summary>
+        public async Task<NeighbourhoodPriority[]?> GetNeighbourhoodPrioritiesAsync(Force force, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodPrioritiesAsync(force.Id, neighbourhood.Id);
+
+        /// <summary>
+        /// Neighbourhood priorities
+        /// </summary>
+        public async Task<NeighbourhoodPriority[]?> GetNeighbourhoodPrioritiesAsync(string forceId, Neighbourhood neighbourhood) =>
+            await GetNeighbourhoodPrioritiesAsync(forceId, neighbourhood.Id);
+
         #endregion 
+
     }
 }

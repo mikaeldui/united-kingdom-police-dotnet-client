@@ -53,6 +53,8 @@ namespace UnitedKingdom.Police.Tests
                 var result = await client.Neighbourhoods.GetNeighbourhoodTeamAsync("leicestershire", neighbourhoods.First());
 
                 Assert.IsTrue(result.Any());
+                Assert.IsNotNull(result.First().Rank);
+                Assert.IsNotNull(result.First().Name);
             }
             catch (HttpRequestException ex) when (ex.Message.Contains("404"))
             {
@@ -70,6 +72,26 @@ namespace UnitedKingdom.Police.Tests
                 var result = await client.Neighbourhoods.GetNeighbourhoodEventsAsync("leicestershire", neighbourhoods.First());
 
                 Assert.IsTrue(result.Any());
+                Assert.IsNotNull(result.First().Description);
+                Assert.IsNotNull(result.First().Title);
+            }
+            catch (HttpRequestException ex) when (ex.Message.Contains("404"))
+            {
+                Assert.Inconclusive("No events found.");
+            }
+        }
+
+        [TestMethod]
+        public async Task GetNeighbourhoodPrioritiesAsync()
+        {
+            using var client = new PoliceClient();
+            var neighbourhoods = await client.Neighbourhoods.GetNeighbourhoodsAsync("leicestershire");
+            try
+            {
+                var result = await client.Neighbourhoods.GetNeighbourhoodPrioritiesAsync("leicestershire", neighbourhoods.First());
+
+                Assert.IsTrue(result.Any());
+                Assert.IsNotNull(result.First().Issue);
             }
             catch (HttpRequestException ex) when (ex.Message.Contains("404"))
             {
